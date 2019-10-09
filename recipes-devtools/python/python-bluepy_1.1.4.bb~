@@ -1,0 +1,33 @@
+LICENSE = "GPLv2"
+LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=59e0d45ea684dda215889aa1b5acd001 \
+                    file://bluez-5.29/COPYING;md5=12f884d2ae1ff87c09e5b7ccc2c4ca7e \
+                    file://bluez-5.29/COPYING.LIB;md5=fb504b67c50331fc78734fed90fb0e09"
+
+HOMEPAGE = "https://github.com/IanHarvey/bluepy"
+SUMMARY = "Python module for interfacing with BLE devices through Bluez"
+
+SRC_URI = "https://github.com/IanHarvey/bluepy/archive/v/${PV}.zip \
+		file://0001-Path-CC-CFLAGS-For-Cross-Compiler.patch"
+SRC_URI[md5sum] = "1884705e7091ac9213f92b4b6e654ea8"
+SRC_URI[sha256sum] = "dffda1432d5115d40c1bd40761a2cfcb313db363e76d78e662102881b965dcb1"
+
+S = "${WORKDIR}/bluepy-v-1.1.4"
+
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}_${PV}:"
+
+inherit setuptools
+
+DEPENDS_${PN} = "python glib-2.0"
+RDEPENDS_${PN} += "python-argparse python-core python-io python-json python-subprocess"
+
+
+export BUILD_SYS
+export HOST_SYS
+export STAGING_INCDIR
+export STAGING_LIBDIR
+BBCLASSEXTEND = "native"
+
+#do_compile_prepend() {
+#	% CFLAGS=${CFLAGS} ${STAGING_BINDIR_NATIVE}/python-native/python setup.py
+#	% CC=${CC} ${STAGING_BINDIR_NATIVE}/python-native/python setup.py
+#}	

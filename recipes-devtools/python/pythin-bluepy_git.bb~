@@ -1,0 +1,25 @@
+SUMMARY = "Python interface to Bluetooth LE on Linux"
+HOMEPAGE = "https://github.com/IanHarvey/bluepy"
+LICENSE = "GPL-2.0"
+LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=59e0d45ea684dda215889aa1b5acd001"
+
+
+SRC_URI = "https://github.com/IanHarvey/bluepy.git"
+SRCREV = "${AUTOREV}"
+PV .= "+git${SRCPV}"
+S = "${WORKDIR}/git"
+
+DEPENDS_${PN} = "python glib-2.0"
+
+# INHIBIT_PACKAGE_STRIP = "1"
+
+inherit setuptools 
+
+do_install() {
+ 	cd ${S}
+ 	${STAGING_BINDIR_NATIVE}/python-native/python setup.py install
+}
+
+FILES_${PN} = "${libdir}/python${PYTHON_BASEVERSION}/site-packages/bluepy* \
+${libdir}/python${PYTHON_BASEVERSION}/site-packages/bluepy/* \
+"
